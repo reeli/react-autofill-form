@@ -25,7 +25,7 @@ export class AutoFill {
     const ele = document.querySelector(selector);
     if (ele) {
       ele.value = value;
-      ele.dispatchEvent(new Event('change'));
+      ele.dispatchEvent(new Event('change', { bubbles: true }));
     }
   }
 }
