@@ -1,3 +1,9 @@
+interface IInputElementPreset {
+  selector: string;
+  value: any;
+  event?: string;
+}
+
 export class AutoFill {
   config: any;
 
@@ -7,8 +13,8 @@ export class AutoFill {
 
   start() {
     if (this.matchPath()) {
-      this.config[this.pathname].forEach((item: any) => {
-        this.fill(item.selector, item.value);
+      this.config[this.pathname].forEach((input: IInputElementPreset) => {
+        this.fill(input);
       })
     }
   }
@@ -21,11 +27,28 @@ export class AutoFill {
     return this.config[this.pathname];
   }
 
-  fill(selector: any, value: any) {
-    const ele = document.querySelector(selector);
+  setNativeInputValue(ele: any, value: any) {
+    const nativeInputValueSetter = (Object as any)
+      .getOwnPropertyDescriptor((window as any).HTMLInputElement.prototype, 'value')
+      .set;
+    nativeInputValueSetter.call(ele, value);
+  }
+
+  createEventAndSetValue(ele: HTMLInputElement, value: any, event: string = 'input') {
+    if (event === 'input') {
+      // 因为 React onChange 事件是合成事件 (synthetical)，在内部拦截了 value，所以这里需要给原生的 input 设值
+      this.setNativeInputValue(ele, value);
+      return new Event('input', { bubbles: true });
+    }
+    ele.value = value;
+    return new Event(event, { bubbles: true });
+  }
+
+  fill({ selector, value, event }: IInputElementPreset) {
+    const ele = document.querySelector(selector) as HTMLInputElement;
     if (ele) {
-      ele.value = value;
-      ele.dispatchEvent(new Event('change', { bubbles: true }));
+      const eve = this.createEventAndSetValue(ele, value, event);
+      ele.dispatchEvent(eve);
     }
   }
 }

@@ -5,12 +5,12 @@ import { autoFillConfig } from './autofillConfig';
 
 class App extends React.Component {
   state = {
-    value: '',
+    selected: '',
   };
 
   handleChange(evt: React.ChangeEvent<any>) {
     this.setState({
-      value: evt.target.value,
+      selected: evt.target.value,
     });
   }
 
@@ -24,12 +24,27 @@ class App extends React.Component {
     return (
       <form>
         <div>
-          <input type="text" placeholder="type username here..." name="username"/>
+          <input
+            type="text"
+            placeholder="type username here..."
+            name="username"
+            onChange={() => {
+              console.log('change triggered!');
+            }}
+          />
         </div>
         <div>
-          <input type="password" placeholder="type password here..." name="password"/>
+          <input
+            type="password"
+            placeholder="type password here..."
+            name="password"
+          />
         </div>
-        <select onChange={this.handleChange.bind(this)} value={this.state.value} name="birthday">
+        <select
+          name="birthday"
+          onChange={this.handleChange.bind(this)}
+          value={this.state.selected}
+        >
           <option value='1990'>1990</option>
           <option value='1991'>1991</option>
           <option value='1992'>1992</option>
