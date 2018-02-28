@@ -36,7 +36,9 @@ export class AutoFill {
 
   createEventAndSetValue(ele: HTMLInputElement, value: any, event: string = 'input') {
     if (event === 'input') {
-      // 因为 React onChange 事件是合成事件 (synthetical)，在内部拦截了 value，所以这里需要给原生的 input 设值
+      /* For React 16, because React onChange event is synthetical，
+      and use descriptor to intercept value, so we need to set native input value here.
+      */
       this.setNativeInputValue(ele, value);
       return new Event('input', { bubbles: true });
     }
