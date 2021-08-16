@@ -1,8 +1,7 @@
 import * as HtmlWebpackPlugin from 'html-webpack-plugin';
 import * as path from 'path';
-import * as webpack from 'webpack';
 
-const webpackConfig: webpack.Configuration = {
+const webpackConfig = {
   context: path.resolve(__dirname, './'),
   entry: './index.tsx',
   output: {
@@ -26,22 +25,22 @@ const webpackConfig: webpack.Configuration = {
           },
         ],
       },
-      {
-        test: /\.html$/,
-        use: ['raw-loader'],
-      },
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'React UI Components',
+      title: 'Auto Fill Form',
       template: './index.html',
     }),
   ],
+  resolve: {
+    modules: [__dirname, "node_modules"],
+    extensions: [".tsx", ".ts", ".mjs", ".jsx", ".js", ".json"],
+  },
   devServer: {
     compress: true,
     port: 5000,
   },
 };
 
-export = webpackConfig;
+export default webpackConfig;

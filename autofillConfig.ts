@@ -1,4 +1,6 @@
-export const autoFillConfig = {
+import { AutoFillConfig } from "./autofill";
+
+export const autoFillConfig:AutoFillConfig = {
   '/': [
     {
       selector: 'input[name=username]',

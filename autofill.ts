@@ -4,10 +4,18 @@ interface IInputElementPreset {
   event?: string;
 }
 
-export class AutoFill {
-  config: any;
+export type AutoFillConfig = {
+  [path:string]: Array<{
+    selector: string;
+    value: string,
+    event: 'input' | "change",
+  }>
+}
 
-  constructor(config: any) {
+export class AutoFill {
+  config: AutoFillConfig;
+
+  constructor(config: AutoFillConfig) {
     this.config = config;
   }
 
