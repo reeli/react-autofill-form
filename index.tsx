@@ -6,6 +6,7 @@ import { autoFillConfig } from './autofillConfig';
 class App extends React.Component {
   state = {
     selected: '',
+    flag: false
   };
 
   handleChange(evt: React.ChangeEvent<any>) {
@@ -53,6 +54,20 @@ class App extends React.Component {
         </select>
         <div>
           <button onClick={this.onBtnClick}>Click here to auto fill select</button>
+        </div>
+        <div>
+          <button onClick={()=>{
+            this.setState({flag: !this.state.flag})
+            console.log("button clicked!")
+          }} data-testid={"basic-button"}>Button Element</button>
+          {
+            this.state.flag && (
+              <div>
+                <button onClick={()=>{console.log("button1 clicked!")}} data-testid={"basic-button-1"}>button1</button>
+                <button onClick={()=>{console.log("button2 clicked!")}} data-testid={"basic-button-2"}>button1</button>
+              </div>
+            )
+          }
         </div>
       </form>
     )

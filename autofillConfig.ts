@@ -17,5 +17,19 @@ export const autoFillConfig:AutoFillConfig = {
       value: '1992',
       event: 'change',
     },
+    {
+      selector: "button[data-testid=basic-button]",
+      value: "",
+      event: "click",
+      children: [{
+        selector: "button[data-testid=basic-button-1]",
+        value: "",
+        event: "click",
+      },{
+        selector: "button[data-testid=basic-button-2]",
+        value: "",
+        event: "click",
+      }],
+    }
   ],
 };

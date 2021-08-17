@@ -1,15 +1,13 @@
 interface IInputElementPreset {
   selector: string;
-  value: any;
-  event?: string;
+  event: "input" | "change" | "click";
+  value?: string|number;
+  children?: IInputElementPreset[];
+  delay?: number;
 }
 
 export type AutoFillConfig = {
-  [path:string]: Array<{
-    selector: string;
-    value: string,
-    event: 'input' | "change",
-  }>
+  [path: string]: IInputElementPreset[]
 }
 
 export class AutoFill {
@@ -22,7 +20,25 @@ export class AutoFill {
   start() {
     if (this.matchPath()) {
       this.config[this.pathname].forEach((input: IInputElementPreset) => {
-        this.fill(input);
+        if (input.children) {
+          const delay = input.delay || 500;
+          this.fill(input);
+
+          setTimeout(() => {
+            input.children!.forEach(async(item,idx)=>{
+              await new Promise((resolve)=>{
+                setTimeout(()=>{
+                  this.fill(item);
+                  resolve(item);
+                },delay*(idx+1))
+              })
+            })
+
+          }, delay);
+
+        } else {
+          this.fill(input);
+        }
       })
     }
   }
@@ -37,18 +53,18 @@ export class AutoFill {
 
   setNativeInputValue(ele: any, value: any) {
     const nativeInputValueSetter = (Object as any)
-      .getOwnPropertyDescriptor((window as any).HTMLInputElement.prototype, 'value')
+      .getOwnPropertyDescriptor((window as any).HTMLInputElement.prototype, "value")
       .set;
     nativeInputValueSetter.call(ele, value);
   }
 
-  createEventAndSetValue(ele: HTMLInputElement, value: any, event: string = 'input') {
-    if (event === 'input') {
+  createEventAndSetValue(ele: HTMLInputElement, value: any, event: string = "input") {
+    if (event === "input") {
       /* For React 16, because React onChange event is synthetical，
       and use descriptor to intercept value, so we need to set native input value here.
       */
       this.setNativeInputValue(ele, value);
-      return new Event('input', { bubbles: true });
+      return new Event("input", { bubbles: true });
     }
     ele.value = value;
     return new Event(event, { bubbles: true });
