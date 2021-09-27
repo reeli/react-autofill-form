@@ -44,7 +44,7 @@ export class AutoFill {
   }
 
   get pathname() {
-    return (window.location || {}).pathname;
+    return (globalThis.location || {}).pathname;
   }
 
   matchPath() {

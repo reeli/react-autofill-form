@@ -1,4 +1,4 @@
-import { AutoFillConfig } from "./autofill";
+import { AutoFillConfig } from "../src/autofill";
 
 export const autoFillConfig:AutoFillConfig = {
   '/': [
