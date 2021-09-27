@@ -4,10 +4,12 @@
   "description": "Generate bookmark to help you auto fill your forms",
   "main": "dist/lib/index.js",
   "module": "dist/module/index.js",
+  "types": ".output/src/index.d.ts",
   "scripts": {
     "start": "webpack serve --config webpack.config.ts --mode=development",
     "example": "rm -rf bookemarks/ && ts-node examples/index.ts",
-    "release": "rm -rf dist/ && rollup -c ./rollup.config.ts"
+    "build:types": "rm -rf .output && tsc",
+    "release": "rm -rf dist/ && rollup -c ./rollup.config.ts && npm run build:types"
   },
   "repository": {
     "type": "git",
