@@ -1,10 +1,14 @@
 {
   "name": "react-autofill-form",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Generate bookmark to help you auto fill your forms",
   "main": "dist/lib/index.js",
   "module": "dist/module/index.js",
   "types": ".output/src/index.d.ts",
+  "files": [
+    "dist",
+    ".output/src/index.d.ts"
+  ],
   "scripts": {
     "start": "webpack serve --config webpack.config.ts --mode=development",
     "example": "rm -rf bookemarks/ && ts-node examples/index.ts",
