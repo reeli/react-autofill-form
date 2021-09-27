@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { AutoFill } from './autofill';
-import { autoFillConfig } from './autofillConfig';
+import { AutoFill } from './src/autofill';
+import { autoFillConfig } from './src/autofillConfig';
 
 class App extends React.Component {
   state = {

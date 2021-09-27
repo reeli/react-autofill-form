@@ -8,7 +8,7 @@ import { terser } from "rollup-plugin-terser";
 const pkg = require(path.join(process.cwd(), "package.json"));
 
 module.exports = {
-  input: "runAutoFill.ts",
+  input: "./src/runAutoFill.ts",
   output: [
     {
       dir: "dist/lib",
