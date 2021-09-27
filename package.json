@@ -13,7 +13,8 @@
     "start": "webpack serve --config webpack.config.ts --mode=development",
     "example": "rm -rf bookemarks/ && ts-node examples/index.ts",
     "build:types": "rm -rf .output && tsc",
-    "release": "rm -rf dist/ && rollup -c ./rollup.config.ts && npm run build:types"
+    "release": "rm -rf dist/ && rollup -c ./rollup.config.ts && npm run build:types",
+    "prepare": "npm run release"
   },
   "repository": {
     "type": "git",
