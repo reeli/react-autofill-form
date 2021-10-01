@@ -1,7 +1,7 @@
 import {
   AutoFill,
   AutoFillConfig,
-} from "../src/autofill";
+} from "../src";
 import { autoFillConfig } from "./autofillConfig";
 
 export const runAutoFill = (config:AutoFillConfig) => {
